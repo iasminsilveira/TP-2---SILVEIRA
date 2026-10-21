@@ -52,5 +52,20 @@ class TestProgramaMarketing(unittest.TestCase):
         # buenas + malas = total original
         self.assertEqual(len(buenas) + len(malas), len(datos_mezclados))
 
+    def test_4_lectura_archivo_real(self):
+        """Prueba que el programa pueda leer el archivo CSV real de Kaggle"""
+        from fuentes import FuenteCSV
+        
+        fuente = FuenteCSV()
+        # Para que lea el archivo real
+        datos_crudos = fuente.cargar('data/campaigns.csv')
+        
+        # Verifica que realmente haya leído todas las filas (el CSV tiene 200)
+        self.assertEqual(len(datos_crudos), 200)
+        
+        # Verifica que la primera fila coincida con lo que esperamos
+        primera_fila = datos_crudos[0]
+        self.assertEqual(primera_fila['campaign_id'], '0d120125-26cc-4023-9a54-bebbc0159b76')
+
 if __name__ == '__main__':
     unittest.main()
