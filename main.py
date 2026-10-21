@@ -66,11 +66,11 @@ def main():
             print("-"*40)
 
             top_3 = resultados [:3]
-            orden = ["1er Puesto", "2do Puesto", "3er Puesto"]
+            puesto = ["1er Puesto", "2do Puesto", "3er Puesto"]
 
             for i, res in enumerate(top_3):
-                orden = orden[i] if i < len(orden) else f"#{i+1}"
-                print(f"{orden}: {res['tipo_campania']}")
+                puesto_actual = puesto[i] if i < len(puesto) else f"#{i+1}"
+                print(f"{puesto_actual}: {res['tipo_campania']}")
                 print(f"   ROI Promedio: {res['promedio_roi']}%")
                 print(f"   Inversión Total: ${res['presupuesto_total']:,.2f}")
                 print(f"   Conversiones: {int(res['conversiones_totales'])}")
