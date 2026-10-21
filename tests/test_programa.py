@@ -5,20 +5,20 @@ from analisis import separar_datos
 class TestProgramaMarketing(unittest.TestCase):
 
     def test_1_caso_normal(self):
-        """Prueba que una campaña con datos perfectos sea válida."""
-        # Preparamos una fila simulada
+        """Prueba que una campaña con datos reales (del archivo CSV) sea válida."""
+        # Tomamos la primera fila real del archivo campaigns.csv de Kaggle
         fila_correcta = {
-            'campaign_id': 'camp-123',
-            'campaign_type': 'Social Media',
-            'budget': '1500.50',
-            'conversions': '50',
-            'roi': '2.5'
+            'campaign_id': '0d120125-26cc-4023-9a54-bebbc0159b76',
+            'campaign_type': 'Online Display Ads',
+            'budget': '14528.90',
+            'conversions': '53',
+            'roi': '-61.31'
         }
         campania = Campania(fila_correcta)
         
         # Verificamos que es_valida() devuelva True sin lanzar errores
         self.assertTrue(campania.es_valida())
-        self.assertEqual(campania.budget, 1500.50)
+        self.assertEqual(campania.budget, 14528.90)
 
     def test_2_entrada_invalida(self):
         """Prueba que una campaña con presupuesto negativo lance un ValueError."""
