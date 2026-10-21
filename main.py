@@ -53,6 +53,8 @@ def main():
             except Exception as e:
                 print(f"\n Error inesperado al leer el archivo: {e}")
                 
+        
+        
         elif opcion == '2':
             if len(campanias_buenas) == 0:
                 print("\n Primero tenés que cargar un archivo válido (Opción 1).")
@@ -60,12 +62,27 @@ def main():
             
             resultados = calcular_rendimiento(campanias_buenas)
             print("\n" + "-"*40)
-            print("RENDIMIENTO POR TIPO DE CAMPAÑA")
+            print("TOP 3 MEDIOS DE PUBLICIDAD MÁS RENTABLES (MAYOR ROI)")
             print("-"*40)
-            
+
+            top_3 = resultados [:3]
+            orden = ["1er Puesto", "2do Puesto", "3er Puesto"]
+
+            for i, res in enumerate(top_3):
+                orden = orden[i] if i < len(orden) else f"#{i+1}"
+                print(f"{orden}: {res['tipo_campania']}")
+                print(f"   ROI Promedio: {res['promedio_roi']}%")
+                print(f"   Inversión Total: ${res['presupuesto_total']:,.2f}")
+                print(f"   Conversiones: {int(res['conversiones_totales'])}")
+                print("-" * 45)
+
+            # Lista completa detallada
+            print("\n" + "-"*45)
+            print(" DETALLE GENERAL DE TODOS LOS TIPOS DE CAMPAÑA")
+            print("-"*45)
             for res in resultados:
                 print(f"Tipo: {res['tipo_campania']}")
-                print(f"  💰 Presupuesto Invertido: ${res['presupuesto_total']:,.2f}")
+                print(f"     Presupuesto Invertido: ${res['presupuesto_total']:,.2f}")
                 print(f"     Conversiones Logradas: {res['conversiones_totales']}")
                 print(f"     ROI Promedio: {res['promedio_roi']}%")
                 print("-" * 40)
