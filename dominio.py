@@ -15,15 +15,23 @@ class Campania:
         if not re.fullmatch(patron, self.campaign_id):
             raise ValueError("El ID de campaña está vacío o tiene símbolos raros.")
 
+        # 2. Convertir cada variable de a una para identificar el error exacto
         try:
-            # Intentamos convertir los textos a números con decimales (float)
             presupuesto_num = float(self.budget)
-            conversiones_num = float(self.conversions)
-            roi_num = float(self.roi)
-        except ValueError:
-            # Si por ejemplo alguien escribió "mil" en vez de 1000, o dejó en blanco, salta este error
-            raise ValueError("El presupuesto, conversiones o ROI no son números válidos.")
+        except (ValueError, TypeError):
+            raise ValueError("El presupuesto (budget) no es un número válido.")
 
+        try:
+            conversiones_num = float(self.conversions)
+        except (ValueError, TypeError):
+            raise ValueError("Las conversiones (conversions) no son un número válido.")
+
+        try:
+            roi_num = float(self.roi)
+        except (ValueError, TypeError):
+            raise ValueError("El ROI no es un número válido.")
+        
+        
         if presupuesto_num <= 0:
             raise ValueError("El presupuesto debe ser mayor a cero.")
         
