@@ -34,6 +34,8 @@ def separar_datos(datos_crudos):
 def calcular_rendimiento(campanias_buenas):
     """
     Agrupa las campañas por tipo y calcula cuál tuvo mejor ROI promedio.
+    Devuelve la lista ordenada de mayor a menor ROI.
+    
     """
     rendimiento_por_tipo = {}
 
@@ -68,4 +70,7 @@ def calcular_rendimiento(campanias_buenas):
             "promedio_roi": round(promedio_roi, 2) # Redondea a 2 decimales
         })
 
+    # Ordena de mayor a menor el ROI promedio
+    resultados.sort(key=lambda x: x["promedio_roi"], reverse=True)
+    
     return resultados
