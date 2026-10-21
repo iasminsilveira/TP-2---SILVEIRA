@@ -1,5 +1,6 @@
 from fuentes import FuenteCSV, FuenteJSON
 from analisis import separar_datos, calcular_rendimiento
+from analisis import calcular_cpa_por_medio
 
 def mostrar_menu():
     print("\n" + "-"*40)
@@ -8,7 +9,8 @@ def mostrar_menu():
     print("1. Cargar archivo de campañas (CSV o JSON)")
     print("2. Ver rendimiento por tipo de campaña")
     print("3. Ver reporte de campañas rechazadas (errores)")
-    print("4. Salir")
+    print ("4. Ver medio más barato para adquirir clientes (Costo por adquisición)")
+    print("5. Salir")
     return input("\nElegí una opción (1-4): ")
 
 def main():
@@ -100,7 +102,16 @@ def main():
                 print(f"Motivo: {mala['motivo_rechazo']}\n")
             print("Aclaración: Estas campañas se excluyeron para no arruinar el cálculo de rendimiento.")
             
+
         elif opcion == '4':
+            ranking_cpa = calcular_cpa_por_medio(campanias_buenas)
+            print("\n--- COSTO POR ADQUISICIÓN (CPA) ---")
+            print("¿Cuánto cuesta conseguir 1 cliente en cada medio?")
+            for i, item in enumerate(ranking_cpa, start=1):
+                print(f"{i}º Puesto: {item['canal']} - CPA: ${item['cpa']:.2f}")
+
+        
+        elif opcion == '5':
             print("\n¡Gracias por usar el sistema! Cerrando programa...\n")
             break
             

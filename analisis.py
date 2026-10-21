@@ -74,3 +74,29 @@ def calcular_rendimiento(campanias_buenas):
     resultados.sort(key=lambda x: x["promedio_roi"], reverse=True)
     
     return resultados
+
+def calcular_cpa_por_medio(campanias):
+    datos_por_medio = {}
+    # Agrupa y suma presupuesto y conversiones
+    for campania in campanias:
+        canal = campania.campaign_type
+        if canal not in datos_por_medio:
+            datos_por_medio[canal] = {'presupuesto': 0, 'conversiones': 0}
+
+        datos_por_medio[canal]['presupuesto'] += float(campania.budget)
+        datos_por_medio[canal]['conversiones'] += int(campania.conversions)
+    
+    cpa_por_medio = []
+
+    # Calcula el Costo por Adquisición  real
+    for canal, datos in datos_por_medio.items():
+        if datos['conversiones'] > 0:
+            cpa = datos['presupuesto'] / datos['conversiones']
+        else:
+            cpa = 0
+        cpa_por_medio.append({'canal': canal, 'cpa': cpa})
+
+    # Paso 3: Ordenar de menor a mayor (el CPA más bajo es el mejor)
+    cpa_por_medio.sort(key=lambda x: x['cpa'])
+    
+    return cpa_por_medio 
