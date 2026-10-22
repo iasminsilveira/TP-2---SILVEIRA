@@ -1,4 +1,4 @@
-from src.dominio import Campania
+from dominio import Campania
 
 def separar_datos(datos_crudos):
     """

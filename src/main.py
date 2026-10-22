@@ -1,7 +1,7 @@
-from src.fuentes import FuenteCSV, FuenteJSON
-from src.analisis import separar_datos, calcular_rendimiento
-from src.analisis import calcular_cpa_por_medio
-from src.analisis import calcular_cpa_por_medio, calcular_eficiencia_score
+from fuentes import FuenteCSV, FuenteJSON
+from analisis import separar_datos, calcular_rendimiento
+from analisis import calcular_cpa_por_medio
+from analisis import calcular_cpa_por_medio, calcular_eficiencia_score
 
 def mostrar_menu():
     print("\n" + "-"*40)
@@ -13,7 +13,7 @@ def mostrar_menu():
     print ("4. Ver medio más barato para adquirir clientes (Costo por adquisición)")
     print ("5. Ver recomendación final, ROI vs CPA")
     print("6. Salir")
-    return input("\nElegí una opción (1-4): ")
+    return input("\nElegí una opción (1-6): ")
 
 def main():
     campanias_buenas = []
@@ -106,6 +106,11 @@ def main():
             
 
         elif opcion == '4':
+           
+            if len(campanias_buenas) == 0:
+                print("\n Primero tenés que cargar un archivo válido (Opción 1).")
+                continue
+
             ranking_cpa = calcular_cpa_por_medio(campanias_buenas)
             print("\n--- COSTO POR ADQUISICIÓN (CPA) ---")
             print("¿Cuánto cuesta conseguir 1 cliente en cada medio?")
@@ -113,6 +118,11 @@ def main():
                 print(f"{i}º Puesto: {item['canal']} - CPA: ${item['cpa']:.2f}")
 
         elif opcion == '5':
+
+            if len(campanias_buenas) == 0:
+                print("\n Primero tenés que cargar un archivo válido (Opción 1).")
+                continue
+            
             ranking_final = calcular_eficiencia_score(campanias_buenas)
             print("\n--- RECOMENDACIÓN DEFINITIVA DE INVERSIÓN ---")
             print("Evaluando el cruce de mayor ROI y menor CPA...")
