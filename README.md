@@ -10,6 +10,7 @@ El siguiente proyecto es una aplicación en consola que procesa un historial de 
 
 El programa evalúa el Retorno de Inversión (ROI) general y el Costo por Adquisición (CPA) de cada medio. El ROI es la métrica que mide la rentabilidad financiera de una campaña en terminos porcentuales. El CPA indica cuánto dinero cuesta conseguir un cliente real (conversión) en cada medio.
 
+Luego el menú presenta una opción que sirve para ver la eficiencia definitiva, cruzando el ROI y CPA juntos (ROI dividido CPA). Porque analizarlos de forma aislada puede llevar a malas interpretaciones, un medio podría tener un ROI excelente, pero un CPA tan alto que termine rápidamente con todo el presupuesto disponible. Genera un ranking definitivo para la empresa.
 
 Las siguientes condiciones se deben cumplir obligatoriamente en el CSV o Json que suba el usuario:
 

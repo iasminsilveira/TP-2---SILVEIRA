@@ -1,16 +1,18 @@
 from fuentes import FuenteCSV, FuenteJSON
 from analisis import separar_datos, calcular_rendimiento
 from analisis import calcular_cpa_por_medio
+from analisis import calcular_cpa_por_medio, calcular_eficiencia_score
 
 def mostrar_menu():
     print("\n" + "-"*40)
     print("SISTEMA DE RENDIMIENTO DE CAMPAÑAS")
     print("-"*40)
     print("1. Cargar archivo de campañas (CSV o JSON)")
-    print("2. Ver rendimiento por tipo de campaña")
+    print("2. Ver retorno de inversión (ROI) por tipo de campaña")
     print("3. Ver reporte de campañas rechazadas (errores)")
     print ("4. Ver medio más barato para adquirir clientes (Costo por adquisición)")
-    print("5. Salir")
+    print ("Ver recomendación final, ROI vs CPA")
+    print("6. Salir")
     return input("\nElegí una opción (1-4): ")
 
 def main():
@@ -110,8 +112,17 @@ def main():
             for i, item in enumerate(ranking_cpa, start=1):
                 print(f"{i}º Puesto: {item['canal']} - CPA: ${item['cpa']:.2f}")
 
-        
         elif opcion == '5':
+            ranking_final = calcular_eficiencia_score(campanias_buenas)
+            print("\n--- RECOMENDACIÓN DEFINITIVA DE INVERSIÓN ---")
+            print("Evaluando el cruce de mayor ROI y menor CPA...")
+            
+            for i, item in enumerate(ranking_final, start=1):
+                destaque = " Conviene invertir en: " if i == 1 else "   "
+                print(f"{i}º {destaque} {item['medio']}")
+                print(f"   -> ROI Promedio: {item['roi']:.2f}% | CPA: ${item['cpa']:.2f} | Score: {item['puntaje']:.2f}\n")
+        
+        elif opcion == '6':
             print("\n¡Gracias por usar el sistema! Cerrando programa...\n")
             break
             

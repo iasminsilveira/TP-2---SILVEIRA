@@ -79,24 +79,65 @@ def calcular_cpa_por_medio(campanias):
     datos_por_medio = {}
     # Agrupa y suma presupuesto y conversiones
     for campania in campanias:
-        canal = campania.campaign_type
-        if canal not in datos_por_medio:
-            datos_por_medio[canal] = {'presupuesto': 0, 'conversiones': 0}
+        medio = campania.campaign_type
+        if not medio or medio.strip() == "":
+            medio = "Sin Especificar"
+        if medio not in datos_por_medio:
+            datos_por_medio[medio] = {'presupuesto': 0, 'conversiones': 0}
 
-        datos_por_medio[canal]['presupuesto'] += float(campania.budget)
-        datos_por_medio[canal]['conversiones'] += int(campania.conversions)
+        datos_por_medio[medio]['presupuesto'] += float(campania.budget)
+        datos_por_medio[medio]['conversiones'] += int(campania.conversions)
     
     cpa_por_medio = []
 
     # Calcula el Costo por Adquisición  real
-    for canal, datos in datos_por_medio.items():
+    for medio, datos in datos_por_medio.items():
         if datos['conversiones'] > 0:
             cpa = datos['presupuesto'] / datos['conversiones']
         else:
             cpa = 0
-        cpa_por_medio.append({'canal': canal, 'cpa': cpa})
+        cpa_por_medio.append({'canal': medio, 'cpa': cpa})
 
     # Paso 3: Ordenar de menor a mayor (el CPA más bajo es el mejor)
     cpa_por_medio.sort(key=lambda x: x['cpa'])
     
     return cpa_por_medio 
+
+def calcular_eficiencia_score(campanias):
+    datos_por_medio = {}
+    
+    # 1. Agrupa la información
+    for campania in campanias:
+        medio = campania.campaign_type
+        if medio not in datos_por_medio:
+            datos_por_medio[medio] = {'presupuesto': 0, 'conversiones': 0, 'roi_total': 0, 'cantidad': 0}
+            
+        datos_por_medio[medio]['presupuesto'] += float(campania.budget)
+        datos_por_medio[medio]['conversiones'] += int(campania.conversions)
+        datos_por_medio[medio]['roi_total'] += float(campania.roi)
+        datos_por_medio[medio]['cantidad'] += 1
+        
+    ranking = []
+    
+    # 2. Calcula ROI, CPA y Puntaje de Eficiencia
+    for medio, datos in datos_por_medio.items():
+        cpa = datos['presupuesto'] / datos['conversiones'] if datos['conversiones'] > 0 else 0
+        roi_promedio = datos['roi_total'] / datos['cantidad'] if datos['cantidad'] > 0 else 0
+        
+        # Si da pérdida o no trae clientes, el puntaje es 0. Si no, calcula la eficiencia.
+        if cpa > 0 and roi_promedio > 0:
+            puntaje = roi_promedio / cpa
+        else:
+            puntaje = 0
+            
+        ranking.append({
+            'medio': medio,
+            'roi': roi_promedio,
+            'cpa': cpa,
+            'puntaje': puntaje
+        })
+        
+    # 3. Ordena de mayor a menor puntaje (el mejor arriba)
+    ranking.sort(key=lambda x: x['puntaje'], reverse=True)
+    
+    return ranking
