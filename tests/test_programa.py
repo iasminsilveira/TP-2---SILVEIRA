@@ -1,6 +1,6 @@
 import unittest
-from dominio import Campania
-from analisis import separar_datos
+from src.dominio import Campania
+from src.analisis import separar_datos
 
 class TestProgramaMarketing(unittest.TestCase):
 
@@ -54,7 +54,7 @@ class TestProgramaMarketing(unittest.TestCase):
 
     def test_4_lectura_archivo_real(self):
         """Prueba que el programa pueda leer el archivo CSV real de Kaggle"""
-        from fuentes import FuenteCSV
+        from src.fuentes import FuenteCSV
         
         fuente = FuenteCSV()
         # Para que lea el archivo real

@@ -1,7 +1,7 @@
-from fuentes import FuenteCSV, FuenteJSON
-from analisis import separar_datos, calcular_rendimiento
-from analisis import calcular_cpa_por_medio
-from analisis import calcular_cpa_por_medio, calcular_eficiencia_score
+from src.fuentes import FuenteCSV, FuenteJSON
+from src.analisis import separar_datos, calcular_rendimiento
+from src.analisis import calcular_cpa_por_medio
+from src.analisis import calcular_cpa_por_medio, calcular_eficiencia_score
 
 def mostrar_menu():
     print("\n" + "-"*40)
@@ -11,7 +11,7 @@ def mostrar_menu():
     print("2. Ver retorno de inversión (ROI) por tipo de campaña")
     print("3. Ver reporte de campañas rechazadas (errores)")
     print ("4. Ver medio más barato para adquirir clientes (Costo por adquisición)")
-    print ("Ver recomendación final, ROI vs CPA")
+    print ("5. Ver recomendación final, ROI vs CPA")
     print("6. Salir")
     return input("\nElegí una opción (1-4): ")
 
@@ -127,7 +127,7 @@ def main():
             break
             
         else:
-            print("\n!! Opción incorrecta. Por favor, ingresá un número del 1 al 4.")
+            print("\n!! Opción incorrecta. Por favor, ingresá un número del 1 al 6.")
 
 # Esta línea asegura que el menú solo corra si ejecutamos este archivo directamente
 if __name__ == "__main__":
