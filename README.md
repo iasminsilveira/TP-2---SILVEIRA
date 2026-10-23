@@ -5,7 +5,7 @@ Autor: Iasmin Silveira Fernández
 **Programa de análisis de rendimiento de campañas de marketing**
 
 
-Problema y Alcance:
+**Problema**:
 Las empresas suelen invertir en distintas herramientas de marketing sin saber cuál genera el mejor rendimiento y retorno de inversión (ROI).
 Los posibles usuarios son equipos de marketing o dueños de empresas que posean publicidad propia y que buscan optimizar la asignación de presupuesto publicitario.
 El siguiente proyecto es una aplicación en consola que procesa un historial de campañas que el ususario debe subir, normaliza los datos y realiza el análisis final.
@@ -31,13 +31,13 @@ Las siguientes columnas con sus nombres exactos (en inglés y minúsculas) para 
 *(Si alguna fila del archivo no contiene exactamente estas columnas, tiene valores vacíos o tipos de datos inválidos (como letras en la columna de presupuesto), el programa filtrará esa campaña automáticamente y la enviará al reporte de campañas rechazadas).*
 
 
-## INSTALACIÓN Y USO:
+**INSTALACIÓN Y USO:**
 
 * Requiere **Python 3**
 * No requiere instalación de bibliotecas externas (utiliza únicamente la biblioteca estándar de Python: `csv`, `json`, `re`, `unittest`).
 
 
-Organización del código:
+**Organización del código:**
 * `src` : Carpeta que contiene los archivos principales:
 * **`main.py`:** Punto de entrada que despliega el menú interactivo para el usuario.
 * **`fuentes.py`**: Clases para la lectura segura de archivos mediante la clase base FuenteDatos y sus derivadas para CSV y JSON.
@@ -47,9 +47,7 @@ Organización del código:
 * `tests`: Carpeta que contiene casos de prueba (`test_programa.py`) ejecuables para asegurar la calidad del código.
 
 
-    
-
-En la carpeta *data* está el dataset de ejemplo, llamado "campaigns.csv". Fue extraido de Kaggle: 
+    En la carpeta *data* está el dataset de ejemplo, llamado "campaigns.csv". Fue extraido de Kaggle: 
 
 * URL: https://www.kaggle.com/datasets/raghavendragandhi/retail-customer-and-transaction-dataset
 * Licencia: MIT
@@ -59,7 +57,9 @@ En la carpeta *data* está el dataset de ejemplo, llamado "campaigns.csv". Fue e
 
 El programa incluye pruebas unitarias para validar las entradas, los datos nulos y las propiedades de las funciones. Para correrlas:
 
+```
 python -m unittest discover tests/
+```
 
 
 **Ejecución de la aplicación:**
@@ -70,5 +70,24 @@ python -m unittest discover tests/
 
 3. Ejecutar el siguiente comando desde la terminal:
 
-```bash
+```
 python src/main.py
+```
+
+
+**Ejemplo de Resultado e Interpretación**
+
+Al ejecutar la Opción 5 (Ver recomendación final), el programa calcula el Score de Eficiencia cruzando las métricas de rentabilidad y costo, mostrando un ranking definitivo.
+
+**Ejemplo de salida en consola:**
+
+```
+1º Conviene invertir en: Social Media
+   -> ROI Promedio: 120.50% | CPA: $15.00 | Score: 8.03
+2º    Email Marketing
+   -> ROI Promedio: 80.00% | CPA: $20.00 | Score: 4.00
+3º ...
+```
+
+**Interpretación del resultado:**
+El "Score de Eficiencia" se obtiene dividiendo el ROI sobre el CPA. El resultado se interpreta de forma directa: un puntaje más alto indica que el medio genera un alto porcentaje de retorno a un bajo costo de adquisición. El medio ubicado en el primer puesto del ranking representa el destino más seguro y rentable para asignar el presupuesto publicitario de la empresa.

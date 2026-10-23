@@ -54,6 +54,12 @@ def main():
                 print(f"-> Campañas con datos sucios separadas: {len(campanias_malas)}")
             except FileNotFoundError:
                 print(f"\n Error: No se encontró ningún archivo en la ruta '{ruta}'")
+            except KeyError:
+                print("\nERROR: El archivo tiene columnas faltantes o mal escritas.")
+                print("Verifica que existan todas las columnas obligatorias indicadas arriba.")
+                print("Por favor", "soluciona esto y vuelve a intentar la Opción 1.\n")
+                campanias_buenas = []
+                campanias_malas = []
             except Exception as e:
                 print(f"\n Error inesperado al leer el archivo: {e}")
                 
